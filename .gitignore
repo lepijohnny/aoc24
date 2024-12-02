@@ -1,0 +1,92 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment directories
+env/
+venv/
+ENV/
+.VENV/
+env.bak/
+venv.bak/
+
+# Environment variables and configuration files
+*.env
+.env.*
+*.ini
+*.cfg
+*.local
+secrets.json
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs
+*.log
+*.out
+*.err
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Testing artifacts
+.tox/
+.nox/
+coverage/
+*.coverage
+.coverage.*
+.cache/
+pytest_cache/
+htmlcov/
+.coverage.*
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pylint
+.pylint.d/
+
+# Pyre type checker
+.pyre/
+
+# Sphinx documentation
+docs/_build/
+*.rst~
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Packaging
+*.egg
+*.egg-info/
+dist/
+build/
+wheels/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# C extensions
+*.so
+
+# Jupyter Notebook cells
+.ipynb_checkpoints/
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Temporary files
+*.swp
+*.swo
+*~
