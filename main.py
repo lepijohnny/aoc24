@@ -2,7 +2,6 @@ import sys
 import traceback
 import click
 
-from cli.config import ROOT_DIR, DAYS_DIR
 from cli.download import download
 from cli.new import new
 from cli.run import run
