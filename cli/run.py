@@ -2,7 +2,6 @@ import sys
 import subprocess
 import click
 
-from cli.config import DAYS_DIR
 from cli.utils import get_day_dir
 
 
