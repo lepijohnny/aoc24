@@ -30,8 +30,8 @@ def main() -> None:
     n, m = len(grid), len(grid[0])
 
     t = 0
-    for r in range(n):
-        for c in range(m):
+    for r in range(1, n - 1):
+        for c in range(1, m - 1):
             if grid[r][c] == "A":
                 t += scan(grid, r, c)
 

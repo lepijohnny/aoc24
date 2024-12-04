@@ -7,7 +7,6 @@ def main() -> None:
 
     pattern = "mul\((?P<a>\d{1,3}),(?P<b>\d{1,3})\)"
 
-    print(data)
     matches = re.finditer(pattern, data)
 
     r = 0
