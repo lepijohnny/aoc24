@@ -7,9 +7,9 @@ from cli.utils import get_day_dir
 
 @click.command()
 @click.argument("day", type=click.IntRange(min=1, max=25))
-@click.argument("part", type=click.IntRange(min=1, max=25))
+@click.argument("part")
 @click.argument("debug", default="")
-def run(day: int, part: int, debug: str) -> None:
+def run(day: int, part: str, debug: str) -> None:
     is_debug = debug.lower() in ["debug"]
 
     day_directory = get_day_dir(day)
