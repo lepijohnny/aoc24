@@ -6,7 +6,7 @@ def loop(x: int, y: int, grid: list[list[str]]) -> bool:
 
     n, m = len(grid), len(grid[0])
 
-    turns = {}
+    turns = set()
     dx, dy = (-1, 0)
 
     while True:
@@ -22,7 +22,7 @@ def loop(x: int, y: int, grid: list[list[str]]) -> bool:
             if (x, y, dx, dy) in turns:
                 return True
 
-            turns[(x, y, dx, dy)] = True
+            turns.add((x, y, dx, dy))
 
         x, y = nX, nY
 
@@ -45,7 +45,7 @@ def main() -> None:
     t = 0
     for i in range(n):
         for j in range(m):
-            if grid[i][j] == "#" or grid[i][j] == "^":
+            if grid[i][j] in "#^":
                 continue
             grid[i][j] = "#"
             if loop(x, y, grid):
