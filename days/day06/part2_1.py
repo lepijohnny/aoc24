@@ -1,7 +1,7 @@
 import sys
 
 
-def loop(x: int, y: int, grid: list[str], vx: int, vy: int) -> bool:
+def loop(x: int, y: int, grid: list[list[str]]) -> bool:
     turn = {(-1, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, -1), (0, -1): (-1, 0)}
 
     n, m = len(grid), len(grid[0])
@@ -15,7 +15,7 @@ def loop(x: int, y: int, grid: list[str], vx: int, vy: int) -> bool:
         if nX < 0 or nX >= n or nY < 0 or nY >= m:
             break
 
-        while grid[nX][nY] == "#" or (nX, nY) == (vx, vy):
+        while grid[nX][nY] == "#":
             dx, dy = turn[(dx, dy)]
             nX, nY = x + dx, y + dy
 
@@ -32,7 +32,7 @@ def loop(x: int, y: int, grid: list[str], vx: int, vy: int) -> bool:
 def main() -> None:
     data = sys.stdin.read().strip()
 
-    grid = list(data.splitlines())
+    grid = list(list(line) for line in data.splitlines())
 
     n, m = n, m = len(grid), len(grid[0])
 
@@ -47,8 +47,10 @@ def main() -> None:
         for j in range(m):
             if grid[i][j] == "#" or grid[i][j] == "^":
                 continue
-            if loop(x, y, grid, i, j):
+            grid[i][j] = "#"
+            if loop(x, y, grid):
                 t += 1
+            grid[i][j] = "."
 
     print(t)
 
