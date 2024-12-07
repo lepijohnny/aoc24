@@ -23,9 +23,9 @@ def main() -> None:
     score = []
     nums = []
     for line in data.splitlines():
-        x = line.split(":")
-        score.append(int(x[0]))
-        nums.append(list(map(int, x[1].strip().split(" "))))
+        a, b = line.split(": ")
+        score.append(int(a))
+        nums.append(list(map(int, b.split())))
 
     t = 0
 
