@@ -13,7 +13,7 @@ def check(score: int, t: int, x: list[int], idx: int) -> bool:
 
     plus = check(score, t + next, x, idx + 1)
     mul = check(score, t * next, x, idx + 1)
-    conc = check(score, int(str(t) + str(next)), x, idx + 1)
+    conc = check(score, int(f"{t}{next}"), x, idx + 1)
 
     return plus or mul or conc
 
