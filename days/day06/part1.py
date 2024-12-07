@@ -18,9 +18,9 @@ def main() -> None:
 
     turn = {(-1, 0): (0, 1), (0, 1): (1, 0), (1, 0): (0, -1), (0, -1): (-1, 0)}
 
-    route = {(x, y): True}
+    route = set()
     dx, dy = (-1, 0)
-    t = 0
+
     while True:
         nX, nY = x + dx, y + dy
 
@@ -30,13 +30,11 @@ def main() -> None:
         if grid[nX][nY] == "#":
             dx, dy = turn[(dx, dy)]
             nX, nY = x + dx, y + dy
-            t += 1
 
         x, y = nX, nY
-        route[(x, y)] = True
+        route.add((x, y))
 
     print(len(route))
-    print(t)
 
 
 if __name__ == "__main__":

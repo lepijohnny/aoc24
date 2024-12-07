@@ -6,6 +6,8 @@ from cli.download import download
 from cli.new import new
 from cli.run import run
 
+import random
+
 
 @click.group(
     context_settings={"help_option_names": ["--help", "-h"], "max_content_width": 120}
