@@ -1,5 +1,6 @@
 import sys
 from itertools import combinations
+from collections import defaultdict
 
 
 def main() -> None:
@@ -9,13 +10,11 @@ def main() -> None:
 
     h, w = len(grid), len(grid[0])
 
-    ants = {}
+    ants = defaultdict(list)
     for r in range(h):
         for c in range(w):
             a = grid[r][c]
             if a != ".":
-                if a not in ants:
-                    ants[a] = []
                 ants[a].append((r, c))
 
     unq = set()
