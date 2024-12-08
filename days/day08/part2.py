@@ -33,9 +33,6 @@ def main() -> None:
                     grid[ax][ay] = "#"
                 ax, ay = ax - dx, ay - dy
 
-            ax, ay = a
-            bx, by = b
-
             while bx >= 0 and bx < w and by >= 0 and by < h:
                 if grid[bx][by] not in [ants.keys(), "#"]:
                     unq.add((bx, by))
