@@ -1,5 +1,6 @@
 import click
 
+from cli.config import DAYS_DIR
 from cli.utils import get_day_dir, get_req_session
 
 
@@ -11,7 +12,7 @@ def download(day: int) -> None:
     input_file = day_directory / "input.txt"
 
     if not input_file.is_file():
-        raise ValueError(f"{input_file} doesn't exist")
+        raise ValueError(f"(download) {input_file} doesn't exist")
 
     if input_file.stat().st_size != 0:
         raise ValueError(f"{input_file} is not empty")
@@ -20,3 +21,4 @@ def download(day: int) -> None:
     resp.raise_for_status()
 
     input_file.write_text(resp.text.strip(), encoding="utf-8")
+    print("(download) Successfully download the input")
