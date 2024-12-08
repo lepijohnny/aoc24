@@ -27,14 +27,10 @@ def main() -> None:
             if ax >= 0 and ax < w and ay >= 0 and ay < h:
                 if grid[ax][ay] != "#":
                     unq.add((ax, ay))
-                    if grid[ax][ay] == ".":
-                        grid[ax][ay] = "#"
 
             if bx >= 0 and bx < w and by >= 0 and by < h:
                 if grid[bx][by] != "#":
                     unq.add((bx, by))
-                    if grid[bx][by] == ".":
-                        grid[bx][by] = "#"
     print(len(unq))
 
 
