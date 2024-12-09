@@ -30,7 +30,7 @@ def new(day: int, part: list[str]) -> None:
     files = []
     files.append((day_directory / "debug.txt", ""))
     files.append((day_directory / "input.txt", ""))
-    for p in set(list(part) + ["1", "2"]):
+    for p in set([*part] + ["1", "2"]):
         files.append((day_directory / f"part{p}.py", PY_TEMPLATE))
 
     for file, content in files:

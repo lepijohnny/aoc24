@@ -15,7 +15,7 @@ def download(day: int) -> None:
         raise ValueError(f"(download) {input_file} doesn't exist")
 
     if input_file.stat().st_size != 0:
-        raise ValueError(f"{input_file} is not empty")
+        raise ValueError(f"(download) {input_file} is not empty")
 
     resp = get_req_session().get(f"https://adventofcode.com/2024/day/{day}/input")
     resp.raise_for_status()
