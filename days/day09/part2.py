@@ -21,12 +21,16 @@ def main() -> None:
 
     j = len(memory) - 1
     while j > 0:
+        if memory[j] == ".":
+            j -= 1
+            continue
+
         blk = [memory[j]]
         while memory[j] != "." and memory[j] == memory[j - 1]:
             blk.append(memory[j])
             j -= 1
 
-        if len(blk) > 0 and blk[0] != ".":
+        if len(blk) > 0:
             idx = -1
             for i in range(len(memory) - len(blk)):
                 if memory[i] == "." and len(set(memory[i : i + len(blk)])) == 1:
