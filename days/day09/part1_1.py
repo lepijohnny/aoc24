@@ -19,7 +19,10 @@ def main() -> None:
     for i in range(len(blks) - 1, -1, -1):
         for j in range(len(free)):
             id_blk, size, idx_blk = blks[i]
-            _, avl, idx = free[j]
+            id, avl, idx = free[j]
+
+            if id != -1:
+                continue
 
             if idx_blk < idx:
                 continue
@@ -33,6 +36,10 @@ def main() -> None:
                 blks[i] = (id_blk, size, idx)
                 free[j] = (-1, avl - size, idx + size)
                 break
+
+            if avl < size:
+                blks[i] = (id_blk, size - avl, idx_blk)
+                free[j] = (id_blk, avl, idx)
 
     t = 0
     for i, blk in enumerate(blks):
