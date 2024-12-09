@@ -1,4 +1,5 @@
 import sys
+from itertools import chain
 
 
 def main() -> None:
@@ -35,15 +36,11 @@ def main() -> None:
                 break
 
     t = 0
-    for i, blk in enumerate(blks):
-        id, size, idx = blk
-        for j in range(idx, idx + size):
-            t += j * id
-    for i, blk in enumerate(free):
+    for blk in chain(blks, free):
         id, size, idx = blk
         if id != -1:
-            for j in range(idx, idx + size):
-                t += j * id
+            for i in range(idx, idx + size):
+                t += i * id
     print(t)
 
 
