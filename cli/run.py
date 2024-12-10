@@ -19,7 +19,7 @@ def run(day: int, part: str, debug: str) -> None:
 
     for file in [py, data]:
         if not file.is_file():
-            raise ValueError(f"{file} doesn't exist")
+            raise ValueError(f"(run) {file} doesn't exist")
 
     with data.open("r", encoding="utf-8") as file:
         proc = subprocess.run([sys.executable, str(py)], stdin=file)
