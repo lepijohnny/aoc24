@@ -6,19 +6,26 @@ def walk_the_edge(edges: set[tuple[int, int, int]]) -> int:
     # for up, down walk left or right, for left, right walk up or down
     move = [[(0, 1), (0, -1)], [(0, -1), (0, 1)], [(1, 0), (-1, 0)], [(1, 0), (-1, 0)]]
 
-    sides = 0
+    count = 0
+    used = set()
     while len(edges) > 0:
-        same = [edges.pop()]
-        while len(same) > 0:
-            x, y, dir = same.pop()
+        edge = edges.pop()
+
+        if edge in used:
+            continue
+
+        side = [edge]
+
+        while len(side) > 0:
+            x, y, dir = side.pop()
             for dx, dy in move[dir]:
                 xx, yy = x + dx, y + dy
-                if (xx, yy, dir) in edges:
-                    same.append((xx, yy, dir))
-                    edges.remove((xx, yy, dir))
+                if (xx, yy, dir) in edges and (xx, yy, dir) not in used:
+                    side.append((xx, yy, dir))
+                    used.add((xx, yy, dir))
 
-        sides += 1
-    return sides
+        count += 1
+    return count
 
 
 def main() -> None:
