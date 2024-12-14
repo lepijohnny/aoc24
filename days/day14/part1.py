@@ -18,8 +18,6 @@ def quadrant(grid, wspan, hspan) -> int:
 
 
 def print_grid(grid, robots, split=True) -> None:
-    # print("\n".join(["".join(map(str, x)) for x in grid]))
-
     h, w = len(grid), len(grid[0])
 
     for x, y, _, _ in robots:
@@ -36,17 +34,7 @@ def print_grid(grid, robots, split=True) -> None:
 
 
 def teleport(move, position, velocity, bound):
-    p = position + move * velocity
-
-    if 0 <= p < bound:
-        return p
-
-    if p < 0:
-        rem = -p % bound
-        return rem if rem == 0 else bound - rem
-
-    if p >= bound:
-        return p % bound
+    return (position + move * velocity) % bound
 
 
 def main() -> None:

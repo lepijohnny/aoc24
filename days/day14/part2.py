@@ -2,10 +2,11 @@ import re
 import sys
 
 
-def find_tree(grid, robots, split=True, rsym="*", esym=".", width=8) -> bool:
-    h, w = len(grid), len(grid[0])
+def maybe_tree(w, h, robots, split=True, rsym="*", esym=".", width=8) -> bool:
 
     maybe = False
+
+    grid = [[0 for _ in range(w)] for _ in range(h)]
 
     for x, y, _, _ in robots:
         grid[y][x] += 1
@@ -34,17 +35,7 @@ def find_tree(grid, robots, split=True, rsym="*", esym=".", width=8) -> bool:
 
 
 def teleport(move, position, velocity, bound):
-    p = position + move * velocity
-
-    if 0 <= p < bound:
-        return p
-
-    if p < 0:
-        rem = -p % bound
-        return rem if rem == 0 else bound - rem
-
-    if p >= bound:
-        return p % bound
+    return (position + move * velocity) % bound
 
 
 def main() -> None:
@@ -57,7 +48,7 @@ def main() -> None:
 
     h, w = 103, 101
 
-    for i in range(1, 1000000):
+    for i in range(1, h * w):
         for j in range(len(robots)):
             x, y, vx, vy = robots[j]
 
@@ -66,7 +57,7 @@ def main() -> None:
 
             robots[j] = (x, y, vx, vy)
 
-        if find_tree([[0 for _ in range(w)] for _ in range(h)], robots, split=False):
+        if maybe_tree(w, h, robots, split=False, width=8):
             print(i)
             break
 
