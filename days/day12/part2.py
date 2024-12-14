@@ -7,12 +7,8 @@ def walk_the_edge(edges: set[tuple[int, int, int]]) -> int:
     move = [[(0, 1), (0, -1)], [(0, -1), (0, 1)], [(1, 0), (-1, 0)], [(1, 0), (-1, 0)]]
 
     count = 0
-    used = set()
     while len(edges) > 0:
         edge = edges.pop()
-
-        if edge in used:
-            continue
 
         side = [edge]
 
@@ -20,11 +16,12 @@ def walk_the_edge(edges: set[tuple[int, int, int]]) -> int:
             x, y, dir = side.pop()
             for dx, dy in move[dir]:
                 xx, yy = x + dx, y + dy
-                if (xx, yy, dir) in edges and (xx, yy, dir) not in used:
+                if (xx, yy, dir) in edges:
                     side.append((xx, yy, dir))
-                    used.add((xx, yy, dir))
+                    edges.remove((xx, yy, dir))
 
         count += 1
+
     return count
 
 
@@ -46,7 +43,7 @@ def main() -> None:
             if (r, c) in seen:
                 continue
 
-            R = grid[r][c]
+            tgt = grid[r][c]
             explore = [(r, c)]
             edges = []
             area = 0
@@ -67,7 +64,7 @@ def main() -> None:
                         edges.append((px, py, i))
                         continue
 
-                    if grid[x][y] != R:
+                    if grid[x][y] != tgt:
                         edges.append((px, py, i))
                         continue
 
