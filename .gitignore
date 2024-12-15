@@ -90,3 +90,7 @@ pip-wheel-metadata/
 *.swp
 *.swo
 *~
+
+# Day 15 visualisation
+frames/
+days/day15/part2_1.py
