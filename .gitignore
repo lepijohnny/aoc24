@@ -91,6 +91,7 @@ pip-wheel-metadata/
 *.swo
 *~
 
-# Day 15 visualisation
+# Days Visualisation
 frames/
 days/day15/part2_1.py
+days/day16/part2_1.py
