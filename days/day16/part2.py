@@ -2,6 +2,10 @@ import sys
 import heapq
 
 
+def not_blocked(x, y, grid) -> bool:
+    return grid[x][y] in ".E"
+
+
 def compact_grid_print(x, y, grid):
     w, h = len(grid), len(grid[0])
 
@@ -47,7 +51,12 @@ def main() -> None:
     grid = list(list(x for x in line) for line in data.splitlines())
 
     sx, sy = find("S", grid)
+    if (sx, sy) == (None, None):
+        raise RuntimeError("Start doesn't exist")
+
     ex, ey = find("E", grid)
+    if (sx, sy) == (None, None):
+        raise RuntimeError("Finish doesn't exist")
 
     dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
     idx = 0
@@ -61,10 +70,10 @@ def main() -> None:
         (TURN, sx, sy, ccw_idx, [(sx, sy, ccw_idx)]),
     ]
 
-    seen = {}
+    seen: dict[tuple[int | None, int | None, int], int] = {}
     best = set()
-
     finished = sys.maxsize
+
     while len(explore) > 0:
         cost, x, y, idx, path = heapq.heappop(explore)
 
@@ -76,7 +85,7 @@ def main() -> None:
         if cost > finished:
             continue
 
-        # end reached
+        # finish reached
         if (x, y) == (ex, ey):
             finished = cost if cost < finished else finished
             for x, y, _ in path:
@@ -86,28 +95,19 @@ def main() -> None:
         # try to move in the same direction
         dx, dy = dirs[idx]
         nx, ny = x + dx, y + dy
-        if grid[nx][ny] in ".E":
+        if not_blocked(nx, ny, grid):
             heapq.heappush(explore, (cost + RUN, nx, ny, idx, [*path, (nx, ny, idx)]))
 
-        # turn clockwise
-        cw_idx = clockwise(dirs, idx)
-        dx, dy = dirs[cw_idx]
-        nx, ny = x + dx, y + dy
-        if grid[nx][ny] == ".":
-            heapq.heappush(
-                explore, (cost + TURN, x, y, cw_idx, [*path, (x, y, cw_idx)])
-            )
+        # turn
+        for t_idx in [clockwise(dirs, idx), counterclockwise(dirs, idx)]:
+            dx, dy = dirs[t_idx]
+            nx, ny = x + dx, y + dy
+            if not_blocked(nx, ny, grid):
+                heapq.heappush(
+                    explore, (cost + TURN, x, y, t_idx, [*path, (x, y, t_idx)])
+                )
 
-        # turn counterclockwise
-        ccw_idx = counterclockwise(dirs, idx)
-        dx, dy = dirs[ccw_idx]
-        nx, ny = x + dx, y + dy
-        if grid[nx][ny] == ".":
-            heapq.heappush(
-                explore, (cost + TURN, x, y, ccw_idx, [*path, (x, y, ccw_idx)])
-            )
-
-    print(f"{len(best)}")
+    print(f"{finished}, {len(best)}")
 
 
 if __name__ == "__main__":
