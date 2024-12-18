@@ -93,5 +93,4 @@ pip-wheel-metadata/
 
 # Days Visualisation
 frames/
-days/day15/part2_1.py
-days/day16/part2_1.py
+days/**/part*_ui.py
