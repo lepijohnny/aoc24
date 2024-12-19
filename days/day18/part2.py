@@ -1,6 +1,5 @@
 from heapq import heapify, heappop, heappush
 import sys
-import time
 
 
 def can_reach_finish(fx, fy, blocked) -> bool:
@@ -11,9 +10,6 @@ def can_reach_finish(fx, fy, blocked) -> bool:
     finish = False
     while len(heap) > 0:
         cost, x, y = heappop(heap)
-
-        # print(f"x={x}, y={y}, cost={cost}")
-        # time.sleep(0.5)
 
         if (fx, fy) == (x, y):
             finish = True
@@ -54,10 +50,10 @@ def main() -> None:
 
         if can:
             min_idx = idx
-            idx = min_idx + (max_idx - min_idx) // 2
         else:
             max_idx = idx
-            idx = min_idx + (max_idx - min_idx) // 2
+
+        idx = min_idx + (max_idx - min_idx) // 2
 
     print(f"{corrupt[idx]}")
 
