@@ -73,20 +73,10 @@ def main() -> None:
     base = dist_to_end_from[start]
 
     t = 0
-    for r in range(w):
-        for c in range(h):
-            if grid[r][c] in "#":
-                continue
-
-            dist_to_20_from = distances((r, c), True, 20, grid)
-
-            for (kx, ky), v in dist_to_20_from.items():
-                if grid[kx][ky] == "#":
-                    continue
-
-                d = dist_to_start_from[(r, c)] + dist_to_end_from[(kx, ky)] + v
-
-                if base - d >= 100:
+    for (x, y), fs in dist_to_start_from.items():
+        for (xx, yy), fe in dist_to_end_from.items():
+            if abs(xx - x) + abs(yy - y) <= 20:
+                if fs + fe + abs(xx - x) + abs(yy - y) <= base - 100:
                     t += 1
 
     print(t)
