@@ -7,7 +7,6 @@ class Keyboard:
         self.type = type
         self.layout = layout
         self.position = key
-        self.memory = key
 
         self.__key_map = {}
         w, h = len(self.layout), len(self.layout[0])
