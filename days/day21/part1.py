@@ -6,7 +6,6 @@ class Keyboard:
     def __init__(self, layout: list[list[str]], key: str):
         self.layout = layout
         self.position = key
-        self.memory = key
 
     def push(self, key: str) -> tuple[str | None, str | None]:
         if self.position == key:
