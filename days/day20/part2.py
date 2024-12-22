@@ -3,7 +3,9 @@ import sys
 from collections import defaultdict
 
 
-def distances(point, cheat, max, grid) -> defaultdict[tuple[int, int], int]:
+def distances(
+    point, cheat, max, grid
+) -> defaultdict[tuple[int | None, int | None], int]:
 
     w, h = len(grid), len(grid[0])
     x, y = point
@@ -12,7 +14,7 @@ def distances(point, cheat, max, grid) -> defaultdict[tuple[int, int], int]:
     heapify(heap)
     seen = {}
 
-    distances = defaultdict()
+    distances = defaultdict(lambda: sys.maxsize)
     distances[(x, y)] = 0
     while len(heap) > 0:
         cost, x, y = heappop(heap)
@@ -36,11 +38,7 @@ def distances(point, cheat, max, grid) -> defaultdict[tuple[int, int], int]:
             if next > max:
                 continue
 
-            if (nx, ny) not in distances:
-                distances[(nx, ny)] = next
-
-            if distances[(nx, ny)] > next:
-                distances[(nx, ny)] = next
+            distances[(nx, ny)] = min(distances[(nx, ny)], next)
 
             heappush(heap, (next, nx, ny))
 
@@ -67,10 +65,10 @@ def main() -> None:
     start = find("S", grid)
     end = find("E", grid)
 
-    dist_to_start_from = distances(start, False, sys.maxsize, grid)
-    dist_to_end_from = distances(end, False, sys.maxsize, grid)
+    dist_to_start = distances(start, cheat=False, max=sys.maxsize, grid=grid)
+    dist_to_end = distances(end, cheat=False, max=sys.maxsize, grid=grid)
 
-    base = dist_to_end_from[start]
+    base = dist_to_end[start]
 
     t = 0
     for r in range(w):
@@ -78,13 +76,13 @@ def main() -> None:
             if grid[r][c] in "#":
                 continue
 
-            dist_to_20_from = distances((r, c), True, 20, grid)
+            dist_to_20 = distances((r, c), cheat=True, max=20, grid=grid)
 
-            for (kx, ky), v in dist_to_20_from.items():
+            for (kx, ky), v in dist_to_20.items():
                 if grid[kx][ky] == "#":
                     continue
 
-                d = dist_to_start_from[(r, c)] + dist_to_end_from[(kx, ky)] + v
+                d = dist_to_start[(r, c)] + dist_to_end[(kx, ky)] + v
 
                 if base - d >= 100:
                     t += 1

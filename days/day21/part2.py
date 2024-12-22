@@ -81,11 +81,11 @@ def main() -> None:
     mine = Keyboard("mine", [[None, "^", "A"], ["<", "v", ">"]], "A")
 
     pads = [numpad]
-    for i in range(24):
+    for _ in range(24):
         pads.append(Keyboard("robot", [[None, "^", "A"], ["<", "v", ">"]], "A"))
     pads.append(mine)
 
-    memory: dict[tuple[int, str], str] = {}
+    memory: dict[tuple[int, str], int] = {}
     t = 0
     for line in data.splitlines():
         t += sequence(pads, 0, line, memory) * int(re.findall(r"\d+", line)[0])
@@ -93,4 +93,20 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    print("+---+---+---+")
+    print("| 7 | 8 | 9 |")
+    print("+---+---+---+")
+    print("| 4 | 5 | 6 |")
+    print("+---+---+---+")
+    print("| 1 | 2 | 3 |")
+    print("+---+---+---+")
+    print("    | 0 | A |")
+    print("    +---+---+")
+    print("\n")
+    print("    +---+---+")
+    print("    | ^ | A |")
+    print("+---+---+---+")
+    print("| < | v | > |")
+    print("+---+---+---+")
+
     main()
