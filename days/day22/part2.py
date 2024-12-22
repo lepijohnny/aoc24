@@ -1,4 +1,5 @@
 import sys
+from collections import deque
 
 
 def mix(x: int, y: int) -> int:
@@ -21,7 +22,7 @@ def main() -> None:
     gtrend = {}
     for s in secrets:
         s3 = s
-        tmp = []
+        queue = deque(maxlen=5)
         ltrend = {}
         for i in range(2000):
             s = s3
@@ -29,17 +30,17 @@ def main() -> None:
             s2 = prune(mix(s1, int(s1 / 32)))
             s3 = prune(mix(s2, s2 * 2048))
 
-            tmp.append(s3)
+            queue.append(s3)
 
-            if i >= 4:
+            if len(queue) == 5:
                 seq = (
-                    last(tmp[-4]) - last(tmp[-5]),
-                    last(tmp[-3]) - last(tmp[-4]),
-                    last(tmp[-2]) - last(tmp[-3]),
-                    last(tmp[-1]) - last(tmp[-2]),
+                    last(queue[-4]) - last(queue[-5]),
+                    last(queue[-3]) - last(queue[-4]),
+                    last(queue[-2]) - last(queue[-3]),
+                    last(queue[-1]) - last(queue[-2]),
                 )
                 if seq not in ltrend:
-                    ltrend[seq] = last(tmp[i])
+                    ltrend[seq] = last(queue[-1])
 
         for k, v in ltrend.items():
             if k in gtrend:
