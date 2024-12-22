@@ -1,0 +1,55 @@
+import sys
+from collections import Counter
+
+
+def mix(x: int, y: int) -> int:
+    return x ^ y
+
+
+def prune(x: int) -> int:
+    return int(x % 16777216)
+
+
+def last(x: int) -> int:
+    return int(str(x)[-1])
+
+
+def main() -> None:
+    data = sys.stdin.read().strip()
+
+    secrets = list(map(int, data.splitlines()))
+
+    gtrend = {}
+    for s in secrets:
+        s3 = s
+        tmp = []
+        ltrend = {}
+        for i in range(2000):
+            s = s3
+            s1 = prune(mix(s, s * 64))
+            s2 = prune(mix(s1, int(s1 / 32)))
+            s3 = prune(mix(s2, s2 * 2048))
+
+            tmp.append(s3)
+
+            if i >= 4:
+                seq = (
+                    last(tmp[-4]) - last(tmp[-5]),
+                    last(tmp[-3]) - last(tmp[-4]),
+                    last(tmp[-2]) - last(tmp[-3]),
+                    last(tmp[-1]) - last(tmp[-2]),
+                )
+                if seq not in ltrend:
+                    ltrend[seq] = int(str(tmp[i])[-1])
+
+        for k, v in ltrend.items():
+            if k in gtrend:
+                gtrend[k] += v
+            else:
+                gtrend[k] = v
+
+    print(max([v for _, v in gtrend.items()]))
+
+
+if __name__ == "__main__":
+    main()
