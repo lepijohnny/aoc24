@@ -1,5 +1,4 @@
 import sys
-from collections import Counter
 
 
 def mix(x: int, y: int) -> int:
@@ -40,7 +39,7 @@ def main() -> None:
                     last(tmp[-1]) - last(tmp[-2]),
                 )
                 if seq not in ltrend:
-                    ltrend[seq] = int(str(tmp[i])[-1])
+                    ltrend[seq] = last(tmp[i])
 
         for k, v in ltrend.items():
             if k in gtrend:
