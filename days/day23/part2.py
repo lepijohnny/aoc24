@@ -2,22 +2,22 @@ import sys
 from collections import defaultdict
 
 
-def search(node, adj, graph) -> set:
+def search(node, adj, clinque) -> set:
 
-    longest = graph
+    longest = clinque
 
     for x in adj[node]:
         if x in longest:
             continue
 
         valid = True
-        for m in graph:
+        for m in clinque:
             if m not in adj[x]:
                 valid = False
                 break
 
         if valid:
-            longest = max([search(x, adj, set([*graph, x])), graph], key=len)
+            longest = max([search(x, adj, set([*clinque, x])), clinque], key=len)
 
     return longest
 
